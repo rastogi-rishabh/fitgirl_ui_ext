@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    body {
+      width: 290px;
+      margin: 0;
+      padding: 16px;
+      background: #080b12;
+      color: #f3f4f6;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .logo {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 2px solid #f472b6;
+    }
+
+    .title {
+      font-weight: 800;
+      font-size: 1rem;
+      background: linear-gradient(135deg, #f472b6, #c084fc, #38bdf8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+      font-size: 0.86rem;
+    }
+
+    .toggle-switch {
+      position: relative;
+      display: inline-block;
+      width: 42px;
+      height: 22px;
+    }
+
+    .toggle-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      inset: 0;
+      background-color: #374151;
+      transition: .25s ease;
+      border-radius: 22px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 16px;
+      width: 16px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: .25s ease;
+      border-radius: 50%;
+    }
+
+    input:checked + .slider {
+      background: linear-gradient(135deg, #f472b6, #c084fc);
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(20px);
+    }
+
+    .btn {
+      width: 100%;
+      padding: 9px 12px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.05);
+      color: #fff;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      margin-bottom: 8px;
+      text-align: center;
+      display: block;
+      text-decoration: none;
+      box-sizing: border-box;
+    }
+
+    .btn:hover {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .btn-sync {
+      border-color: rgba(56, 189, 248, 0.35);
+      color: #38bdf8;
+      background: rgba(56, 189, 248, 0.08);
+    }
+
+    .btn-sync:hover {
+      background: rgba(56, 189, 248, 0.16);
+      border-color: #38bdf8;
+    }
+
+    .btn-subtle {
+      border-color: rgba(192, 132, 252, 0.3);
+      color: var(--fg-accent-purple, #c084fc);
+      background: rgba(192, 132, 252, 0.08);
+      font-size: 0.78rem;
+    }
+
+    .btn-subtle:hover {
+      background: rgba(192, 132, 252, 0.16);
+      border-color: #c084fc;
+    }
+
+    .btn-danger {
+      border-color: rgba(248, 113, 113, 0.3);
+      color: #f87171;
+    }
+
+    .btn-danger:hover {
+      background: rgba(248, 113, 113, 0.15);
+      border-color: #f87171;
+    }
+
+    .progress-bar-wrap {
+      width: 100%;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 9999px;
+      overflow: hidden;
+      margin-bottom: 12px;
+      display: none;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(135deg, #f472b6, #c084fc);
+      transition: width 0.2s;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <img src="icons/icon48.png" class="logo" />
+    <span class="title">FitGirl Repacks</span>
+  </div>
+
+  <div class="row">
+    <span>Enable Modern UI</span>
+    <label class="toggle-switch">
+      <input type="checkbox" id="toggle-modern" checked>
+      <span class="slider"></span>
+    </label>
+  </div>
+
+  <div class="row" style="color: #38bdf8; font-weight: 600;">
+    <span>Catalog Storage</span>
+    <span id="catalog-status-text">Checking...</span>
+  </div>
+
+  <div class="progress-bar-wrap" id="progress-bar-wrap">
+    <div class="progress-bar-fill" id="progress-bar-fill"></div>
+  </div>
+
+  <button class="btn btn-sync" id="quick-sync-btn">
+    ⚡ Check for New Games
+  </button>
+
+  <button class="btn btn-subtle" id="force-sync-btn">
+    🔄 Force Full Re-sync (All Pages)
+  </button>
+
+  <a href="https://fitgirl-repacks.site/" target="_blank" class="btn">
+    Open FitGirl Repacks Site
+  </a>
+
+  <button class="btn btn-danger" id="clear-cache-btn">
+    Clear Cache
+  </button>
+
+  <script src="popup.js"></script>
+</body>
+</html>

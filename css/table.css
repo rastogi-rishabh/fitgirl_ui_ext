@@ -1,0 +1,103 @@
+.fg-table-wrapper {
+  width: 100%;
+  background: var(--fg-bg-card);
+  border: 1px solid var(--fg-border);
+  border-radius: var(--fg-radius-md);
+  overflow-x: auto;
+  box-shadow: var(--fg-shadow-sm);
+}
+
+.fg-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.86rem;
+}
+
+.fg-table th {
+  background: rgba(255, 255, 255, 0.04);
+  padding: 12px 16px;
+  font-weight: 700;
+  color: var(--fg-text-secondary);
+  border-bottom: 1px solid var(--fg-border);
+  white-space: nowrap;
+  user-select: none;
+  cursor: pointer;
+  transition: color var(--fg-transition-fast);
+}
+
+.fg-table th:hover {
+  color: var(--fg-text-primary);
+}
+
+.fg-table th.sortable {
+  position: relative;
+  padding-right: 24px;
+}
+
+.fg-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  color: var(--fg-text-primary);
+  vertical-align: middle;
+}
+
+.fg-table tr:last-child td {
+  border-bottom: none;
+}
+
+.fg-table tbody tr {
+  transition: background var(--fg-transition-fast);
+}
+
+.fg-table tbody tr:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.fg-table-title-link {
+  font-weight: 700;
+  color: var(--fg-text-primary);
+  text-decoration: none;
+  transition: color var(--fg-transition-fast);
+  display: block;
+  max-width: 480px;
+}
+
+.fg-table-title-link:hover {
+  color: var(--fg-accent-pink);
+}
+
+.fg-table-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.fg-table-btn {
+  padding: 4px 10px;
+  font-size: 0.78rem;
+}
+
+.fg-table-pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 18px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.fg-table-pagination-info {
+  color: var(--fg-text-secondary);
+  font-size: 0.86rem;
+}
+
+.fg-table-pagination-info strong {
+  color: var(--fg-text-primary);
+}
+
+.fg-table-pagination-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}

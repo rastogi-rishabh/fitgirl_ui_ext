@@ -1,0 +1,163 @@
+.fg-drawer-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  z-index: 1000000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--fg-transition-normal), visibility var(--fg-transition-normal);
+}
+
+.fg-drawer-backdrop.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.fg-filter-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  max-width: 380px;
+  background: var(--fg-bg-surface);
+  border-left: 1px solid var(--fg-border);
+  z-index: 1000001;
+  display: flex;
+  flex-direction: column;
+  transform: translateX(100%);
+  transition: transform var(--fg-transition-normal);
+  box-shadow: -10px 0 30px rgba(0, 0, 0, 0.7);
+}
+
+.fg-filter-drawer.open {
+  transform: translateX(0);
+}
+
+/* Hide floating toggle button when filter drawer is active */
+body:has(.fg-drawer-backdrop.open) #fg-modern-toggle-btn,
+.fg-drawer-backdrop.open ~ #fg-modern-toggle-btn {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  transform: translateY(20px) !important;
+}
+
+.fg-drawer-header {
+  padding: 18px 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--fg-border);
+}
+
+.fg-drawer-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.fg-drawer-close-btn {
+  background: transparent;
+  border: none;
+  color: var(--fg-text-muted);
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 4px;
+  line-height: 1;
+  transition: color var(--fg-transition-fast);
+}
+
+.fg-drawer-close-btn:hover {
+  color: #fff;
+}
+
+.fg-drawer-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.fg-drawer-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.fg-drawer-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--fg-text-secondary);
+}
+
+.fg-drawer-select {
+  width: 100%;
+  padding: 10px 14px;
+  background: var(--fg-bg-input);
+  border: 1px solid var(--fg-border);
+  border-radius: var(--fg-radius-sm);
+  color: var(--fg-text-primary);
+  font-size: 0.88rem;
+  outline: none;
+  cursor: pointer;
+  transition: border-color var(--fg-transition-fast);
+}
+
+.fg-drawer-select:focus {
+  border-color: var(--fg-accent-purple);
+}
+
+.fg-drawer-select option {
+  background: #141a29;
+  color: #fff;
+}
+
+.fg-drawer-pills-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.fg-drawer-pill {
+  padding: 6px 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border-radius: var(--fg-radius-full);
+  border: 1px solid var(--fg-border);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--fg-text-secondary);
+  cursor: pointer;
+  transition: all var(--fg-transition-fast);
+}
+
+.fg-drawer-pill:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--fg-text-primary);
+}
+
+.fg-drawer-pill.active {
+  background: rgba(192, 132, 252, 0.2);
+  border-color: var(--fg-accent-purple);
+  color: #fff;
+}
+
+.fg-drawer-footer {
+  padding: 16px 22px;
+  display: flex;
+  gap: 10px;
+  border-top: 1px solid var(--fg-border);
+  background: rgba(10, 13, 20, 0.5);
+}
+
+.fg-drawer-footer .fg-btn {
+  flex: 1;
+}

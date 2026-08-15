@@ -1,0 +1,249 @@
+.fg-grid-container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 24px 28px 60px 28px;
+}
+
+.fg-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.fg-section-title {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.fg-section-title span:first-child {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -0.3px;
+}
+
+.fg-section-count {
+  font-size: 0.82rem;
+  color: var(--fg-text-muted);
+  font-weight: 600;
+}
+
+.fg-view-toggle-group {
+  display: flex;
+  gap: 4px;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 3px;
+  border-radius: var(--fg-radius-sm);
+  border: 1px solid var(--fg-border);
+}
+
+.fg-view-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border-radius: var(--fg-radius-xs);
+  border: none;
+  background: transparent;
+  color: var(--fg-text-secondary);
+  cursor: pointer;
+  transition: all var(--fg-transition-fast);
+}
+
+.fg-view-btn:hover {
+  color: #fff;
+}
+
+.fg-view-btn.active {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.fg-view-btn.disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.fg-games-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 22px;
+}
+
+/* Minimal Modern Game Card */
+.fg-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--fg-bg-card);
+  border: 1px solid var(--fg-border);
+  border-radius: var(--fg-radius-md);
+  overflow: hidden;
+  position: relative;
+  transition: transform var(--fg-transition-normal), border-color var(--fg-transition-normal), box-shadow var(--fg-transition-normal);
+  box-shadow: var(--fg-shadow-sm);
+}
+
+.fg-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--fg-border-focus);
+  box-shadow: var(--fg-shadow-lg), var(--fg-shadow-glow);
+  background: var(--fg-bg-card-hover);
+}
+
+.fg-card-poster-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  min-height: 175px;
+  background: var(--fg-bg-surface);
+  overflow: hidden;
+}
+
+.fg-card-poster {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  transition: transform var(--fg-transition-slow);
+}
+
+.fg-card:hover .fg-card-poster {
+  transform: scale(1.05);
+}
+
+.fg-card-poster-wrap .fg-steam-pill {
+  position: absolute;
+  top: 9px;
+  left: 9px;
+  z-index: 2;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+}
+
+.fg-card-size-badge {
+  position: absolute;
+  bottom: 9px;
+  right: 9px;
+  z-index: 2;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 3px 7px;
+  border-radius: var(--fg-radius-xs);
+  background: rgba(10, 13, 20, 0.88);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: var(--fg-accent-cyan);
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+}
+
+.fg-card-body {
+  padding: 12px 14px 14px 14px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 8px;
+}
+
+.fg-card-title {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--fg-text-primary);
+  text-decoration: none;
+  line-height: 1.35;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  transition: color var(--fg-transition-fast);
+}
+
+.fg-card-title:hover {
+  color: var(--fg-accent-pink);
+}
+
+.fg-card-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.72rem;
+  color: var(--fg-text-muted);
+  gap: 8px;
+}
+
+.fg-card-tags {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  overflow: hidden;
+  max-height: 22px;
+}
+
+.fg-card-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: auto;
+  padding-top: 6px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.fg-card-magnet-btn {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 6px 12px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  border-radius: var(--fg-radius-xs);
+  border: 1px solid rgba(244, 114, 182, 0.25);
+  background: var(--fg-gradient-magnet);
+  color: var(--fg-accent-pink);
+  text-decoration: none;
+  transition: all var(--fg-transition-fast);
+}
+
+.fg-card-magnet-btn:hover {
+  background: var(--fg-gradient-magnet-hover);
+  border-color: var(--fg-accent-pink);
+  color: #fff;
+  box-shadow: 0 0 10px rgba(244, 114, 182, 0.3);
+}
+
+.fg-card-copy-btn {
+  padding: 6px 8px;
+  font-size: 0.78rem;
+  border-radius: var(--fg-radius-xs);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--fg-border);
+  color: var(--fg-text-secondary);
+  cursor: pointer;
+  transition: all var(--fg-transition-fast);
+}
+
+.fg-card-copy-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+}
+
+@media (max-width: 768px) {
+  .fg-grid-container {
+    padding: 16px 14px 40px 14px;
+  }
+  .fg-games-grid {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 12px;
+  }
+  .fg-card-body {
+    padding: 10px;
+  }
+}

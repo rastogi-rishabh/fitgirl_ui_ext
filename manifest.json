@@ -1,0 +1,80 @@
+{
+  "manifest_version": 3,
+  "name": "FitGirl Repacks - Modern UI",
+  "version": "1.1.0",
+  "description": "Transforms fitgirl-repacks.site into a sleek modern UI with instant magnet downloads, search, filters, and infinite browsing.",
+  "permissions": [
+    "storage",
+    "alarms",
+    "unlimitedStorage"
+  ],
+  "host_permissions": [
+    "https://fitgirl-repacks.site/*",
+    "https://store.steampowered.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://fitgirl-repacks.site/*"
+      ],
+      "css": [
+        "css/variables.css",
+        "css/base.css",
+        "css/navbar.css",
+        "css/banner.css",
+        "css/cards.css",
+        "css/table.css",
+        "css/drawer.css",
+        "css/single.css",
+        "css/sync-modal.css",
+        "styles.css"
+      ],
+      "js": [
+        "src/db.js",
+        "src/utils.js",
+        "src/parser.js",
+        "src/steam.js",
+        "src/comments.js",
+        "src/cards.js",
+        "src/table.js",
+        "src/banner.js",
+        "src/search.js",
+        "src/sync.js",
+        "src/singlePage.js",
+        "src/catalogView.js",
+        "content.js"
+      ],
+      "run_at": "document_start"
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "icons/*",
+        "css/*",
+        "styles.css"
+      ],
+      "matches": [
+        "https://fitgirl-repacks.site/*"
+      ]
+    }
+  ]
+}

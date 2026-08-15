@@ -1,0 +1,102 @@
+.fg-sync-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--fg-transition-normal), visibility var(--fg-transition-normal);
+  padding: 20px;
+}
+
+.fg-sync-modal-backdrop.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.fg-sync-modal {
+  width: 100%;
+  max-width: 460px;
+  background: var(--fg-bg-surface);
+  border: 1px solid rgba(192, 132, 252, 0.3);
+  border-radius: var(--fg-radius-lg);
+  padding: 28px;
+  box-shadow: var(--fg-shadow-lg), 0 0 30px rgba(192, 132, 252, 0.2);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  transform: scale(0.95);
+  transition: transform var(--fg-transition-normal);
+}
+
+.fg-sync-modal-backdrop.open .fg-sync-modal {
+  transform: scale(1);
+}
+
+.fg-sync-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.fg-sync-modal-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.fg-sync-progress-track {
+  width: 100%;
+  height: 10px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: var(--fg-radius-full);
+  overflow: hidden;
+  position: relative;
+}
+
+.fg-sync-progress-bar {
+  height: 100%;
+  width: 0%;
+  background: var(--fg-gradient-brand);
+  border-radius: var(--fg-radius-full);
+  box-shadow: 0 0 12px rgba(192, 132, 252, 0.6);
+  transition: width 0.25s ease;
+}
+
+.fg-sync-stats-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  color: var(--fg-text-secondary);
+}
+
+.fg-sync-percent {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--fg-accent-cyan);
+}
+
+.fg-sync-info-box {
+  padding: 12px 14px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--fg-border);
+  border-radius: var(--fg-radius-sm);
+  font-size: 0.82rem;
+  color: var(--fg-text-muted);
+  line-height: 1.4;
+}
+
+.fg-sync-modal-footer {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}

@@ -1,0 +1,382 @@
+.fg-single-hero-content {
+  display: flex;
+  align-items: flex-end;
+  gap: 28px;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 28px;
+}
+
+.fg-single-cover {
+  width: 220px;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--fg-radius-md);
+  border: 2px solid var(--fg-border-light);
+  box-shadow: var(--fg-shadow-lg);
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.fg-single-header-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.fg-single-column-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.fg-detail-block {
+  background: var(--fg-bg-card);
+  border: 1px solid var(--fg-border);
+  border-radius: var(--fg-radius-md);
+  padding: 22px 26px;
+  box-shadow: var(--fg-shadow-sm);
+}
+
+.fg-detail-heading {
+  font-size: 1.08rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 0 0 16px 0;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.fg-single-specs-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.fg-spec-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.fg-sidebar-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--fg-text-muted);
+  letter-spacing: 0.5px;
+}
+
+.fg-sidebar-val {
+  font-size: 0.88rem;
+  color: var(--fg-text-primary);
+}
+
+.fg-screenshots-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+}
+
+.fg-screenshot-img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: var(--fg-radius-sm);
+  border: 1px solid var(--fg-border);
+  transition: transform var(--fg-transition-fast), border-color var(--fg-transition-fast);
+}
+
+.fg-screenshot-img:hover {
+  transform: scale(1.03);
+  border-color: var(--fg-accent-purple);
+}
+
+/* Single Post Repack Details Body & Dropdowns / Spoilers Dark Mode */
+.fg-single-post-body {
+  line-height: 1.65;
+  font-size: 0.92rem;
+  color: var(--fg-text-secondary);
+}
+
+.fg-single-post-body a {
+  color: var(--fg-accent-cyan);
+  text-decoration: underline;
+}
+
+.fg-single-post-body a:hover {
+  color: #fff;
+}
+
+.fg-single-post-body ul, .fg-single-post-body ol {
+  padding-left: 20px;
+}
+
+.fg-single-post-body p,
+.fg-single-post-body span,
+.fg-single-post-body div,
+.fg-single-post-body li,
+.fg-single-post-body strong,
+.fg-single-post-body b,
+.fg-single-post-body em {
+  color: var(--fg-text-primary);
+}
+
+.fg-single-post-body h1,
+.fg-single-post-body h2,
+.fg-single-post-body h3,
+.fg-single-post-body h4,
+.fg-single-post-body h5,
+.fg-single-post-body h6 {
+  color: #fff !important;
+  margin-top: 18px;
+  margin-bottom: 10px;
+}
+
+/* WordPress Shortcodes Ultimate Spoiler / Accordion Dropdowns */
+.fg-single-post-body .su-spoiler,
+#fg-modern-app-root .su-spoiler {
+  background: rgba(255, 255, 255, 0.03) !important;
+  border: 1px solid var(--fg-border) !important;
+  border-radius: var(--fg-radius-sm) !important;
+  margin: 14px 0 !important;
+  overflow: hidden !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2) !important;
+}
+
+.fg-single-post-body .su-spoiler-title,
+#fg-modern-app-root .su-spoiler-title {
+  position: relative !important;
+  background: rgba(255, 255, 255, 0.06) !important;
+  color: var(--fg-text-primary) !important;
+  font-weight: 700 !important;
+  font-size: 0.94rem !important;
+  padding: 12px 18px 12px 42px !important;
+  cursor: pointer !important;
+  border: none !important;
+  display: block !important;
+  line-height: 1.4 !important;
+  min-height: 20px !important;
+  transition: all var(--fg-transition-fast) !important;
+  user-select: none !important;
+}
+
+.fg-single-post-body .su-spoiler-title:hover,
+#fg-modern-app-root .su-spoiler-title:hover {
+  background: rgba(192, 132, 252, 0.12) !important;
+  color: #fff !important;
+}
+
+.fg-single-post-body .su-spoiler-icon,
+#fg-modern-app-root .su-spoiler-icon {
+  position: absolute !important;
+  left: 14px !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  margin: 0 !important;
+  color: var(--fg-accent-purple) !important;
+  width: 16px !important;
+  height: 16px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 1.15rem !important;
+  font-weight: 700 !important;
+  line-height: 1 !important;
+}
+
+/* Collapsed State: Zero height, no padding, no border */
+.fg-single-post-body .su-spoiler.su-spoiler-closed > .su-spoiler-content,
+#fg-modern-app-root .su-spoiler.su-spoiler-closed > .su-spoiler-content {
+  display: none !important;
+  padding: 0 !important;
+  border: none !important;
+  margin: 0 !important;
+  height: 0 !important;
+  min-height: 0 !important;
+  max-height: 0 !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  overflow: hidden !important;
+}
+
+.fg-single-post-body .su-spoiler.su-spoiler-closed > .su-spoiler-title,
+#fg-modern-app-root .su-spoiler.su-spoiler-closed > .su-spoiler-title {
+  border-radius: var(--fg-radius-sm) !important;
+  border-bottom: none !important;
+}
+
+.fg-single-post-body .su-spoiler.su-spoiler-closed .su-spoiler-icon::before,
+#fg-modern-app-root .su-spoiler.su-spoiler-closed .su-spoiler-icon::before {
+  content: "+" !important;
+}
+
+/* Expanded State */
+.fg-single-post-body .su-spoiler:not(.su-spoiler-closed) > .su-spoiler-title,
+#fg-modern-app-root .su-spoiler:not(.su-spoiler-closed) > .su-spoiler-title {
+  border-bottom: 1px solid var(--fg-border) !important;
+  border-radius: var(--fg-radius-sm) var(--fg-radius-sm) 0 0 !important;
+}
+
+.fg-single-post-body .su-spoiler:not(.su-spoiler-closed) .su-spoiler-icon::before,
+#fg-modern-app-root .su-spoiler:not(.su-spoiler-closed) .su-spoiler-icon::before {
+  content: "−" !important;
+}
+
+.fg-single-post-body .su-spoiler:not(.su-spoiler-closed) > .su-spoiler-content,
+#fg-modern-app-root .su-spoiler:not(.su-spoiler-closed) > .su-spoiler-content {
+  display: block !important;
+  background: rgba(10, 13, 20, 0.4) !important;
+  color: var(--fg-text-secondary) !important;
+  padding: 18px 20px !important;
+  border-top: none !important;
+  font-size: 0.9rem !important;
+  line-height: 1.65 !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+.fg-single-post-body .su-spoiler-content p,
+.fg-single-post-body .su-spoiler-content span,
+.fg-single-post-body .su-spoiler-content li,
+.fg-single-post-body .su-spoiler-content div {
+  color: var(--fg-text-secondary) !important;
+}
+
+/* HTML5 Details & Summary Dropdowns */
+.fg-single-post-body details,
+#fg-modern-app-root details {
+  background: rgba(255, 255, 255, 0.03) !important;
+  border: 1px solid var(--fg-border) !important;
+  border-radius: var(--fg-radius-sm) !important;
+  margin: 14px 0 !important;
+  overflow: hidden !important;
+}
+
+.fg-single-post-body summary,
+#fg-modern-app-root summary {
+  background: rgba(255, 255, 255, 0.06) !important;
+  color: var(--fg-text-primary) !important;
+  font-weight: 700 !important;
+  font-size: 0.92rem !important;
+  padding: 12px 18px !important;
+  cursor: pointer !important;
+  outline: none !important;
+  user-select: none !important;
+  transition: all var(--fg-transition-fast) !important;
+}
+
+.fg-single-post-body summary:hover,
+#fg-modern-app-root summary:hover {
+  background: rgba(192, 132, 252, 0.12) !important;
+  color: #fff !important;
+}
+
+.fg-single-post-body details[open] > summary,
+#fg-modern-app-root details[open] > summary {
+  border-bottom: 1px solid var(--fg-border) !important;
+}
+
+.fg-single-post-body details:not([open]) > :not(summary),
+#fg-modern-app-root details:not([open]) > :not(summary) {
+  display: none !important;
+  height: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.fg-single-post-body details[open] > :not(summary),
+#fg-modern-app-root details[open] > :not(summary) {
+  padding: 16px 18px !important;
+}
+
+/* Native Select and Dropdowns in Content */
+.fg-single-post-body select,
+#fg-modern-app-root select {
+  background: var(--fg-bg-surface) !important;
+  color: var(--fg-text-primary) !important;
+  border: 1px solid var(--fg-border) !important;
+  border-radius: var(--fg-radius-sm) !important;
+  padding: 8px 12px !important;
+  outline: none !important;
+}
+
+.fg-single-post-body select option,
+#fg-modern-app-root select option {
+  background: #101524 !important;
+  color: #fff !important;
+}
+
+/* Tables inside Post Body */
+.fg-single-post-body table,
+#fg-modern-app-root .fg-single-post-body table {
+  width: 100% !important;
+  border-collapse: collapse !important;
+  margin: 16px 0 !important;
+  background: rgba(255, 255, 255, 0.02) !important;
+  border: 1px solid var(--fg-border) !important;
+  border-radius: var(--fg-radius-sm) !important;
+  overflow: hidden !important;
+}
+
+.fg-single-post-body th,
+.fg-single-post-body td,
+#fg-modern-app-root .fg-single-post-body th,
+#fg-modern-app-root .fg-single-post-body td {
+  padding: 10px 14px !important;
+  border: 1px solid var(--fg-border) !important;
+  color: var(--fg-text-primary) !important;
+  background: transparent !important;
+  font-size: 0.88rem !important;
+}
+
+.fg-single-post-body th,
+#fg-modern-app-root .fg-single-post-body th {
+  background: rgba(255, 255, 255, 0.06) !important;
+  font-weight: 700 !important;
+  color: #fff !important;
+}
+
+/* Blockquotes, Code, Pre inside Post Body */
+.fg-single-post-body blockquote,
+#fg-modern-app-root blockquote {
+  border-left: 3px solid var(--fg-accent-purple) !important;
+  margin: 14px 0 !important;
+  padding: 10px 18px !important;
+  background: rgba(192, 132, 252, 0.06) !important;
+  border-radius: 0 var(--fg-radius-sm) var(--fg-radius-sm) 0 !important;
+  color: var(--fg-text-secondary) !important;
+}
+
+.fg-single-post-body pre,
+.fg-single-post-body code,
+#fg-modern-app-root pre,
+#fg-modern-app-root code {
+  background: rgba(0, 0, 0, 0.4) !important;
+  color: var(--fg-accent-cyan) !important;
+  border: 1px solid var(--fg-border) !important;
+  border-radius: var(--fg-radius-xs) !important;
+  padding: 2px 6px !important;
+  font-family: monospace !important;
+}
+
+.fg-single-post-body pre,
+#fg-modern-app-root pre {
+  padding: 14px !important;
+  overflow-x: auto !important;
+}
+
+@media (max-width: 768px) {
+  .fg-single-hero-content {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 0 16px;
+  }
+  .fg-single-cover {
+    width: 180px;
+  }
+  .fg-detail-block {
+    padding: 16px;
+  }
+}
