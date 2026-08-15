@@ -261,15 +261,7 @@ function renderSingleGamePage(game) {
       </main>
     `;
 
-    document.querySelectorAll('.fg-single-post-body .su-spoiler-title').forEach(titleEl => {
-      titleEl.addEventListener('click', (e) => {
-        e.preventDefault();
-        const spoiler = titleEl.closest('.su-spoiler');
-        if (spoiler) {
-          spoiler.classList.toggle('su-spoiler-closed');
-        }
-      });
-    });
+    initSinglePageSpoilers(root);
 
     document.getElementById('fg-copy-magnet-btn-single')?.addEventListener('click', () => {
       if (game.magnetUrl) {
@@ -284,4 +276,105 @@ function renderSingleGamePage(game) {
   } catch (err) {
     console.error('Error rendering single game page:', err);
   }
+}
+
+function toggleSpoilerElement(spoiler) {
+  if (!spoiler) return;
+  const isClosed = spoiler.classList.contains('su-spoiler-closed');
+  const title = spoiler.querySelector(':scope > .su-spoiler-title, .su-spoiler-title');
+  const content = spoiler.querySelector(':scope > .su-spoiler-content, .su-spoiler-content');
+
+  if (isClosed) {
+    spoiler.classList.remove('su-spoiler-closed');
+    spoiler.setAttribute('data-open', 'true');
+    if (title) title.setAttribute('aria-expanded', 'true');
+    if (content) {
+      content.style.removeProperty('display');
+      content.style.setProperty('display', 'block', 'important');
+      content.style.setProperty('visibility', 'visible', 'important');
+      content.style.setProperty('opacity', '1', 'important');
+      content.style.setProperty('height', 'auto', 'important');
+      content.style.setProperty('max-height', 'none', 'important');
+    }
+  } else {
+    spoiler.classList.add('su-spoiler-closed');
+    spoiler.removeAttribute('data-open');
+    if (title) title.setAttribute('aria-expanded', 'false');
+    if (content) {
+      content.style.setProperty('display', 'none', 'important');
+      content.style.setProperty('visibility', 'hidden', 'important');
+      content.style.setProperty('opacity', '0', 'important');
+    }
+  }
+}
+
+let _singlePageSpoilerListenerAttached = false;
+function setupGlobalSpoilerListeners() {
+  if (_singlePageSpoilerListenerAttached) return;
+  _singlePageSpoilerListenerAttached = true;
+
+  document.addEventListener('click', (e) => {
+    const titleEl = e.target.closest('#fg-modern-app-root .su-spoiler-title, #fg-modern-app-root .fg-spoiler-title, #fg-modern-app-root [data-toggle="spoiler"]');
+    if (titleEl) {
+      e.preventDefault();
+      e.stopPropagation();
+      e.stopImmediatePropagation();
+      const spoiler = titleEl.closest('.su-spoiler, .fg-spoiler');
+      if (spoiler) {
+        toggleSpoilerElement(spoiler);
+      }
+      return;
+    }
+
+    const summaryEl = e.target.closest('#fg-modern-app-root summary');
+    if (summaryEl) {
+      e.stopPropagation();
+    }
+  }, true);
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      const titleEl = e.target.closest('#fg-modern-app-root .su-spoiler-title, #fg-modern-app-root .fg-spoiler-title');
+      if (titleEl && (document.activeElement === titleEl || titleEl.contains(document.activeElement))) {
+        e.preventDefault();
+        e.stopPropagation();
+        e.stopImmediatePropagation();
+        const spoiler = titleEl.closest('.su-spoiler, .fg-spoiler');
+        if (spoiler) {
+          toggleSpoilerElement(spoiler);
+        }
+      }
+    }
+  }, true);
+}
+
+function initSinglePageSpoilers(container) {
+  setupGlobalSpoilerListeners();
+  if (!container) return;
+
+  container.querySelectorAll('.su-spoiler, .fg-spoiler').forEach(spoiler => {
+    const isClosed = spoiler.classList.contains('su-spoiler-closed');
+    const title = spoiler.querySelector('.su-spoiler-title, .fg-spoiler-title');
+    const content = spoiler.querySelector('.su-spoiler-content, .fg-spoiler-content');
+
+    if (title) {
+      title.setAttribute('tabindex', '0');
+      title.setAttribute('role', 'button');
+      title.setAttribute('aria-expanded', isClosed ? 'false' : 'true');
+    }
+
+    if (content) {
+      if (isClosed) {
+        spoiler.removeAttribute('data-open');
+        content.style.setProperty('display', 'none', 'important');
+        content.style.setProperty('visibility', 'hidden', 'important');
+        content.style.setProperty('opacity', '0', 'important');
+      } else {
+        spoiler.setAttribute('data-open', 'true');
+        content.style.setProperty('display', 'block', 'important');
+        content.style.setProperty('visibility', 'visible', 'important');
+        content.style.setProperty('opacity', '1', 'important');
+      }
+    }
+  });
 }

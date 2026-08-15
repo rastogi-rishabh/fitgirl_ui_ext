@@ -135,17 +135,26 @@
 
 /* WordPress Shortcodes Ultimate Spoiler / Accordion Dropdowns */
 .fg-single-post-body .su-spoiler,
-#fg-modern-app-root .su-spoiler {
+#fg-modern-app-root .su-spoiler,
+#fg-modern-app-root .su-accordion,
+#fg-modern-app-root .fg-spoiler {
   background: rgba(255, 255, 255, 0.03) !important;
   border: 1px solid var(--fg-border) !important;
   border-radius: var(--fg-radius-sm) !important;
   margin: 14px 0 !important;
   overflow: hidden !important;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2) !important;
+  transition: border-color var(--fg-transition-fast), box-shadow var(--fg-transition-fast) !important;
+}
+
+.fg-single-post-body .su-spoiler:hover,
+#fg-modern-app-root .su-spoiler:hover {
+  border-color: rgba(192, 132, 252, 0.3) !important;
 }
 
 .fg-single-post-body .su-spoiler-title,
-#fg-modern-app-root .su-spoiler-title {
+#fg-modern-app-root .su-spoiler-title,
+#fg-modern-app-root .fg-spoiler-title {
   position: relative !important;
   background: rgba(255, 255, 255, 0.06) !important;
   color: var(--fg-text-primary) !important;
@@ -157,37 +166,51 @@
   display: block !important;
   line-height: 1.4 !important;
   min-height: 20px !important;
-  transition: all var(--fg-transition-fast) !important;
+  transition: background var(--fg-transition-fast), color var(--fg-transition-fast) !important;
   user-select: none !important;
+  outline: none !important;
 }
 
 .fg-single-post-body .su-spoiler-title:hover,
-#fg-modern-app-root .su-spoiler-title:hover {
-  background: rgba(192, 132, 252, 0.12) !important;
+#fg-modern-app-root .su-spoiler-title:hover,
+#fg-modern-app-root .fg-spoiler-title:hover {
+  background: rgba(192, 132, 252, 0.14) !important;
   color: #fff !important;
 }
 
+.fg-single-post-body .su-spoiler-title:focus-visible,
+#fg-modern-app-root .su-spoiler-title:focus-visible {
+  outline: 2px solid var(--fg-accent-purple) !important;
+  outline-offset: -2px !important;
+}
+
 .fg-single-post-body .su-spoiler-icon,
-#fg-modern-app-root .su-spoiler-icon {
+#fg-modern-app-root .su-spoiler-icon,
+#fg-modern-app-root .fg-spoiler-icon {
   position: absolute !important;
   left: 14px !important;
   top: 50% !important;
   transform: translateY(-50%) !important;
   margin: 0 !important;
   color: var(--fg-accent-purple) !important;
-  width: 16px !important;
-  height: 16px !important;
+  width: 18px !important;
+  height: 18px !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
   font-size: 1.15rem !important;
   font-weight: 700 !important;
   line-height: 1 !important;
+  pointer-events: none !important;
 }
 
-/* Collapsed State: Zero height, no padding, no border */
+/* Collapsed State: Zero height, no padding, hidden */
 .fg-single-post-body .su-spoiler.su-spoiler-closed > .su-spoiler-content,
-#fg-modern-app-root .su-spoiler.su-spoiler-closed > .su-spoiler-content {
+.fg-single-post-body .su-spoiler.su-spoiler-closed > p > .su-spoiler-content,
+#fg-modern-app-root .su-spoiler.su-spoiler-closed > .su-spoiler-content,
+#fg-modern-app-root .su-spoiler.su-spoiler-closed > p > .su-spoiler-content,
+#fg-modern-app-root .su-spoiler.su-spoiler-closed > div > .su-spoiler-content,
+#fg-modern-app-root .su-spoiler.su-spoiler-closed:not([data-open="true"]) > .su-spoiler-content {
   display: none !important;
   padding: 0 !important;
   border: none !important;
@@ -213,20 +236,26 @@
 
 /* Expanded State */
 .fg-single-post-body .su-spoiler:not(.su-spoiler-closed) > .su-spoiler-title,
-#fg-modern-app-root .su-spoiler:not(.su-spoiler-closed) > .su-spoiler-title {
+#fg-modern-app-root .su-spoiler:not(.su-spoiler-closed) > .su-spoiler-title,
+#fg-modern-app-root .su-spoiler[data-open="true"] > .su-spoiler-title {
   border-bottom: 1px solid var(--fg-border) !important;
   border-radius: var(--fg-radius-sm) var(--fg-radius-sm) 0 0 !important;
 }
 
 .fg-single-post-body .su-spoiler:not(.su-spoiler-closed) .su-spoiler-icon::before,
-#fg-modern-app-root .su-spoiler:not(.su-spoiler-closed) .su-spoiler-icon::before {
+#fg-modern-app-root .su-spoiler:not(.su-spoiler-closed) .su-spoiler-icon::before,
+#fg-modern-app-root .su-spoiler[data-open="true"] .su-spoiler-icon::before {
   content: "−" !important;
 }
 
 .fg-single-post-body .su-spoiler:not(.su-spoiler-closed) > .su-spoiler-content,
-#fg-modern-app-root .su-spoiler:not(.su-spoiler-closed) > .su-spoiler-content {
+.fg-single-post-body .su-spoiler:not(.su-spoiler-closed) > p > .su-spoiler-content,
+#fg-modern-app-root .su-spoiler:not(.su-spoiler-closed) > .su-spoiler-content,
+#fg-modern-app-root .su-spoiler:not(.su-spoiler-closed) > p > .su-spoiler-content,
+#fg-modern-app-root .su-spoiler:not(.su-spoiler-closed) > div > .su-spoiler-content,
+#fg-modern-app-root .su-spoiler[data-open="true"] > .su-spoiler-content {
   display: block !important;
-  background: rgba(10, 13, 20, 0.4) !important;
+  background: rgba(10, 13, 20, 0.5) !important;
   color: var(--fg-text-secondary) !important;
   padding: 18px 20px !important;
   border-top: none !important;
@@ -234,6 +263,8 @@
   line-height: 1.65 !important;
   visibility: visible !important;
   opacity: 1 !important;
+  height: auto !important;
+  max-height: none !important;
 }
 
 .fg-single-post-body .su-spoiler-content p,
@@ -241,6 +272,16 @@
 .fg-single-post-body .su-spoiler-content li,
 .fg-single-post-body .su-spoiler-content div {
   color: var(--fg-text-secondary) !important;
+}
+
+.fg-single-post-body .su-spoiler-content a {
+  color: var(--fg-accent-cyan) !important;
+  text-decoration: underline !important;
+  word-break: break-all !important;
+}
+
+.fg-single-post-body .su-spoiler-content a:hover {
+  color: #fff !important;
 }
 
 /* HTML5 Details & Summary Dropdowns */
