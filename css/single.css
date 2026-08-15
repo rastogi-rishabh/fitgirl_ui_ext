@@ -75,21 +75,64 @@
 .fg-screenshots-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 12px;
+  gap: 14px;
 }
 
-.fg-screenshot-img {
+.fg-screenshot-link {
+  position: relative;
+  display: block;
+  border-radius: var(--fg-radius-sm);
+  overflow: hidden;
+  border: 1px solid var(--fg-border);
+  background: rgba(0, 0, 0, 0.35);
+  cursor: pointer;
+  text-decoration: none !important;
+  transition: transform var(--fg-transition-fast), border-color var(--fg-transition-fast), box-shadow var(--fg-transition-fast);
+}
+
+.fg-screenshot-link:hover {
+  transform: translateY(-2px) scale(1.02);
+  border-color: var(--fg-accent-purple);
+  box-shadow: 0 8px 20px rgba(192, 132, 252, 0.25);
+}
+
+.fg-screenshot-link .fg-screenshot-img {
   width: 100%;
   aspect-ratio: 16 / 9;
   object-fit: cover;
-  border-radius: var(--fg-radius-sm);
-  border: 1px solid var(--fg-border);
-  transition: transform var(--fg-transition-fast), border-color var(--fg-transition-fast);
+  display: block;
+  border: none;
+  transition: transform var(--fg-transition-fast);
 }
 
-.fg-screenshot-img:hover {
-  transform: scale(1.03);
-  border-color: var(--fg-accent-purple);
+.fg-screenshot-link:hover .fg-screenshot-img {
+  transform: scale(1.05);
+}
+
+.fg-screenshot-overlay {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  background: rgba(15, 20, 34, 0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(192, 132, 252, 0.3);
+  border-radius: var(--fg-radius-xs);
+  padding: 4px 8px;
+  color: #fff;
+  opacity: 0;
+  transform: translateY(4px);
+  transition: all var(--fg-transition-fast);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+.fg-screenshot-link:hover .fg-screenshot-overlay {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* Single Post Repack Details Body & Dropdowns / Spoilers Dark Mode */

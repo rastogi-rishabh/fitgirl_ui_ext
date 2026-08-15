@@ -59,12 +59,26 @@ function parseSinglePost(domContext) {
     .trim();
 
   const screenshots = [];
-  const screenshotImgs = contentEl.querySelectorAll('a[href*="riotpixels"] img, a[href*="imageban"] img, p img');
+  const seenSrcs = new Set();
+  const screenshotImgs = contentEl.querySelectorAll('a[href*="riotpixels"] img, a[href*="imageban"] img, a[href*="image"] img, p img, .su-spoiler img');
   screenshotImgs.forEach(img => {
-    const src = img.getAttribute('src');
-    if (src && !src.includes('cropped-icon') && src !== coverImg && !screenshots.includes(src)) {
-      screenshots.push(src);
+    let src = img.getAttribute('src') || img.getAttribute('data-src') || '';
+    if (!src || src.includes('cropped-icon') || src === coverImg) return;
+    if (src.startsWith('http://')) src = src.replace(/^http:\/\//i, 'https://');
+    if (seenSrcs.has(src)) return;
+    seenSrcs.add(src);
+
+    const parentA = img.closest('a');
+    let fullUrl = parentA ? (parentA.getAttribute('href') || '') : '';
+    if (fullUrl.startsWith('http://')) fullUrl = fullUrl.replace(/^http:\/\//i, 'https://');
+    if (!fullUrl) {
+      fullUrl = src.includes('.240p.jpg') ? src.replace(/\.240p\.jpg$/i, '.jpg') : src;
     }
+
+    screenshots.push({
+      thumb: src,
+      fullUrl: fullUrl
+    });
   });
 
   let mirrorsHtml = '';
@@ -262,12 +276,22 @@ function parsePageGames(domContext) {
       .trim();
 
     const screenshots = [];
-    const screenshotImgs = contentEl.querySelectorAll('a[href*="riotpixels"] img, a[href*="imageban"] img, p img');
+    const seenPageSrcs = new Set();
+    const screenshotImgs = contentEl.querySelectorAll('a[href*="riotpixels"] img, a[href*="imageban"] img, a[href*="image"] img, p img, .su-spoiler img');
     screenshotImgs.forEach(img => {
-      const src = img.getAttribute('src');
-      if (src && !src.includes('cropped-icon') && src !== coverImg) {
-        screenshots.push(src);
+      let src = img.getAttribute('src') || img.getAttribute('data-src') || '';
+      if (!src || src.includes('cropped-icon') || src === coverImg) return;
+      if (src.startsWith('http://')) src = src.replace(/^http:\/\//i, 'https://');
+      if (seenPageSrcs.has(src)) return;
+      seenPageSrcs.add(src);
+
+      const parentA = img.closest('a');
+      let fullUrl = parentA ? (parentA.getAttribute('href') || '') : '';
+      if (fullUrl.startsWith('http://')) fullUrl = fullUrl.replace(/^http:\/\//i, 'https://');
+      if (!fullUrl) {
+        fullUrl = src.includes('.240p.jpg') ? src.replace(/\.240p\.jpg$/i, '.jpg') : src;
       }
+      screenshots.push({ thumb: src, fullUrl: fullUrl });
     });
 
     parsedGames.push({
