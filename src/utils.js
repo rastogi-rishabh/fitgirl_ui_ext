@@ -121,3 +121,64 @@ function checkIsSingleGamePage() {
   }
   return false;
 }
+
+function isExtensionContextValid() {
+  try {
+    return typeof chrome !== 'undefined' && chrome.runtime && !!chrome.runtime.id;
+  } catch (e) {
+    return false;
+  }
+}
+
+function safeStorageSet(data, callback) {
+  try {
+    if (isExtensionContextValid() && chrome.storage && chrome.storage.local) {
+      chrome.storage.local.set(data, () => {
+        try {
+          if (chrome.runtime?.lastError) {}
+        } catch (err) {}
+        if (callback) callback();
+      });
+    }
+  } catch (e) {}
+}
+
+function safeStorageGet(keys, callback) {
+  try {
+    if (isExtensionContextValid() && chrome.storage && chrome.storage.local) {
+      chrome.storage.local.get(keys, (res) => {
+        try {
+          if (chrome.runtime?.lastError) {
+            if (callback) callback({});
+            return;
+          }
+        } catch (err) {}
+        if (callback) callback(res || {});
+      });
+    } else if (callback) {
+      callback({});
+    }
+  } catch (e) {
+    if (callback) callback({});
+  }
+}
+
+function safeSendMessage(msg, callback) {
+  try {
+    if (isExtensionContextValid() && chrome.runtime && chrome.runtime.sendMessage) {
+      chrome.runtime.sendMessage(msg, (res) => {
+        try {
+          if (chrome.runtime?.lastError) {
+            if (callback) callback(null);
+            return;
+          }
+        } catch (err) {}
+        if (callback) callback(res);
+      });
+    } else if (callback) {
+      callback(null);
+    }
+  } catch (e) {
+    if (callback) callback(null);
+  }
+}

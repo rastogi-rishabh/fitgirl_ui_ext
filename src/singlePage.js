@@ -10,10 +10,12 @@ function cleanRepackDetailsBody(html, coverImg, screenshots) {
 
   temp.querySelectorAll('img').forEach(img => {
     const src = img.getAttribute('src') || '';
-    const isCover = coverImg && (src === coverImg || src.includes(coverImg) || coverImg.includes(src));
-    const isScreenshot = screenshots && screenshots.some(s => {
+    const isCover = coverImg && (src === coverImg || (typeof coverImg === 'string' && typeof src === 'string' && (coverImg.includes(src) || src.includes(coverImg))));
+    const isScreenshot = Array.isArray(screenshots) && screenshots.some(s => {
+      if (!s) return false;
       const sSrc = typeof s === 'string' ? s : (s.thumb || s.fullUrl || '');
-      return sSrc && src && (sSrc === src || sSrc.includes(src) || src.includes(sSrc));
+      if (!sSrc || !src) return false;
+      return sSrc === src || (typeof sSrc === 'string' && typeof src === 'string' && (sSrc.includes(src) || src.includes(sSrc)));
     });
 
     if (isCover || isScreenshot || img.classList.contains('alignleft') || img.classList.contains('wplp_thumb')) {
@@ -103,8 +105,8 @@ function renderSingleGamePage(game) {
 
     if (!game) return;
 
-    if (!game.steamData && typeof chrome !== 'undefined' && chrome.runtime && chrome.runtime.sendMessage) {
-      chrome.runtime.sendMessage(
+    if (!game.steamData) {
+      safeSendMessage(
         { action: 'GET_STEAM_DATA', title: game.title || '', rawTitle: game.rawTitle || '' },
         (res) => {
           if (res && res.success && res.data) {
@@ -243,15 +245,15 @@ function renderSingleGamePage(game) {
               ${screenshots && screenshots.length > 0 ? `
                 <div class="fg-screenshots-grid">
                   ${screenshots.map(s => {
-                    const thumb = typeof s === 'string' ? s : (s.thumb || s.fullUrl || '');
-                    let fullUrl = typeof s === 'string' ? s : (s.fullUrl || s.thumb || '');
+                    const thumb = typeof s === 'string' ? s : (s?.thumb || s?.fullUrl || '');
+                    let fullUrl = typeof s === 'string' ? s : (s?.fullUrl || s?.thumb || '');
                     if (!fullUrl || fullUrl === thumb) {
-                      if (thumb.includes('.240p.jpg')) {
+                      if (thumb && typeof thumb === 'string' && thumb.includes('.240p.jpg')) {
                         fullUrl = thumb.replace(/\.240p\.jpg$/i, '.jpg');
                       }
                     }
                     return `
-                      <a href="${fullUrl}" target="_blank" rel="noopener noreferrer" class="fg-screenshot-link" title="Click to enlarge fullsize screenshot">
+                      <a href="${fullUrl || thumb}" target="_blank" rel="noopener noreferrer" class="fg-screenshot-link" title="Click to enlarge fullsize screenshot">
                         <img src="${thumb}" class="fg-screenshot-img" loading="lazy" referrerpolicy="no-referrer" alt="Screenshot" />
                         <div class="fg-screenshot-overlay">
                           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">

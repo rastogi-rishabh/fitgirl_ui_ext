@@ -168,12 +168,11 @@ function updateSyncBadgeUI() {
 }
 
 function triggerCatalogSync(isFullSync = false) {
-  if (typeof chrome === 'undefined' || !chrome.runtime || !chrome.runtime.sendMessage) return;
   syncStatus.isSyncing = true;
   updateSyncBadgeUI();
   showSyncModal();
 
-  chrome.runtime.sendMessage({ action: 'SYNC_CATALOG', full: isFullSync }, (res) => {
+  safeSendMessage({ action: 'SYNC_CATALOG', full: isFullSync }, (res) => {
     if (res && res.success) {
       loadStoredCatalog();
     }

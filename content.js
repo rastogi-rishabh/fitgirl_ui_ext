@@ -31,32 +31,20 @@ var upcomingRepacks = [
   { title: "Doom: The Dark Ages", details: "v1.0 + Soundtrack", postUrl: "https://fitgirl-repacks.site/upcoming-repacks/" }
 ];
 
-if (typeof chrome !== 'undefined' && chrome.storage && chrome.storage.local) {
-  chrome.storage.local.get(['fg_modern_enabled'], (res) => {
-    if (res.fg_modern_enabled === false || isSpecialNonGamePage()) {
-      isModernActive = false;
-      document.documentElement.classList.add('fg-modern-disabled');
-    } else {
-      document.documentElement.classList.remove('fg-modern-disabled');
-    }
-
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', init);
-    } else {
-      init();
-    }
-  });
-} else {
-  if (isSpecialNonGamePage()) {
+safeStorageGet(['fg_modern_enabled'], (res) => {
+  if (res && res.fg_modern_enabled === false || isSpecialNonGamePage()) {
     isModernActive = false;
     document.documentElement.classList.add('fg-modern-disabled');
+  } else {
+    document.documentElement.classList.remove('fg-modern-disabled');
   }
+
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
   } else {
     init();
   }
-}
+});
 
 async function init() {
   createFloatingToggleButton();
@@ -155,9 +143,7 @@ function createFloatingToggleButton() {
 
   btn.addEventListener('click', () => {
     isModernActive = !isModernActive;
-    if (typeof chrome !== 'undefined' && chrome.storage && chrome.storage.local) {
-      chrome.storage.local.set({ fg_modern_enabled: isModernActive });
-    }
+    safeStorageSet({ fg_modern_enabled: isModernActive });
 
     if (isModernActive) {
       document.documentElement.classList.remove('fg-modern-disabled');
@@ -380,9 +366,7 @@ function loadNextApiPage() {
 }
 
 function checkCatalogStatusAndBackgroundSync() {
-  if (typeof chrome === 'undefined' || !chrome.runtime || !chrome.runtime.sendMessage) return;
-
-  chrome.runtime.sendMessage({ action: 'GET_CATALOG_STATUS' }, (res) => {
+  safeSendMessage({ action: 'GET_CATALOG_STATUS' }, (res) => {
     if (res && res.success) {
       syncStatus.isSyncing = res.isSyncing;
       syncStatus.progress = res.progress;
