@@ -237,31 +237,48 @@ function renderSingleGamePage(game) {
             </div>
           </div>
 
-          ${screenshots && screenshots.length > 0 ? `
+          ${(screenshots && screenshots.length > 0) || game.animatedPreview ? `
             <div class="fg-detail-block">
               <h3 class="fg-detail-heading">Screenshots (Click to enlarge)</h3>
-              <div class="fg-screenshots-grid">
-                ${screenshots.map(s => {
-                  const thumb = typeof s === 'string' ? s : (s.thumb || s.fullUrl || '');
-                  let fullUrl = typeof s === 'string' ? s : (s.fullUrl || s.thumb || '');
-                  if (!fullUrl || fullUrl === thumb) {
-                    if (thumb.includes('.240p.jpg')) {
-                      fullUrl = thumb.replace(/\.240p\.jpg$/i, '.jpg');
+              ${screenshots && screenshots.length > 0 ? `
+                <div class="fg-screenshots-grid">
+                  ${screenshots.map(s => {
+                    const thumb = typeof s === 'string' ? s : (s.thumb || s.fullUrl || '');
+                    let fullUrl = typeof s === 'string' ? s : (s.fullUrl || s.thumb || '');
+                    if (!fullUrl || fullUrl === thumb) {
+                      if (thumb.includes('.240p.jpg')) {
+                        fullUrl = thumb.replace(/\.240p\.jpg$/i, '.jpg');
+                      }
                     }
-                  }
-                  return `
-                    <a href="${fullUrl}" target="_blank" rel="noopener noreferrer" class="fg-screenshot-link" title="Click to enlarge fullsize screenshot">
-                      <img src="${thumb}" class="fg-screenshot-img" loading="lazy" referrerpolicy="no-referrer" alt="Screenshot" />
-                      <div class="fg-screenshot-overlay">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
-                          <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
-                        </svg>
-                        <span style="font-size:0.75rem; font-weight:600; margin-left:5px;">Enlarge</span>
-                      </div>
-                    </a>
-                  `;
-                }).join('')}
-              </div>
+                    return `
+                      <a href="${fullUrl}" target="_blank" rel="noopener noreferrer" class="fg-screenshot-link" title="Click to enlarge fullsize screenshot">
+                        <img src="${thumb}" class="fg-screenshot-img" loading="lazy" referrerpolicy="no-referrer" alt="Screenshot" />
+                        <div class="fg-screenshot-overlay">
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                            <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
+                          </svg>
+                          <span style="font-size:0.75rem; font-weight:600; margin-left:5px;">Enlarge</span>
+                        </div>
+                      </a>
+                    `;
+                  }).join('')}
+                </div>
+              ` : ''}
+
+              ${game.animatedPreview ? `
+                ${game.animatedPreview.linkUrl ? `
+                  <a href="${game.animatedPreview.linkUrl}" target="_blank" rel="noopener noreferrer" class="fg-animated-preview-link" title="Click to view on RiotPixels">
+                ` : '<div class="fg-animated-preview-link">'}
+                  ${game.animatedPreview.type === 'video' ? `
+                    <video autoplay loop muted playsinline class="fg-animated-preview-media">
+                      <source src="${game.animatedPreview.src}" type="video/webm">
+                      <source src="${game.animatedPreview.src}" type="video/mp4">
+                    </video>
+                  ` : `
+                    <img src="${game.animatedPreview.src}" class="fg-animated-preview-media" alt="Gameplay Animation" loading="lazy" />
+                  `}
+                ${game.animatedPreview.linkUrl ? `</a>` : '</div>'}
+              ` : ''}
             </div>
           ` : ''}
 

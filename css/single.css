@@ -135,6 +135,45 @@
   transform: translateY(0);
 }
 
+.fg-animated-preview-link {
+  display: block;
+  margin-top: 14px;
+  width: 100%;
+  border-radius: var(--fg-radius-sm);
+  overflow: hidden;
+  border: 1px solid var(--fg-border);
+  line-height: 0;
+  text-decoration: none;
+  cursor: pointer;
+  background: transparent;
+  transition: border-color var(--fg-transition-fast), transform var(--fg-transition-fast), box-shadow var(--fg-transition-fast);
+}
+
+.fg-animated-preview-link:hover {
+  border-color: var(--fg-accent-purple);
+  box-shadow: 0 6px 20px rgba(192, 132, 252, 0.25);
+  transform: translateY(-2px);
+}
+
+.fg-animated-preview-media {
+  width: 100%;
+  height: auto;
+  max-height: 480px;
+  display: block;
+  object-fit: cover;
+  border-radius: var(--fg-radius-sm);
+  margin: 0;
+  padding: 0;
+  border: none;
+  vertical-align: top;
+}
+
+@media (max-width: 768px) {
+  .fg-animated-preview-media {
+    max-height: 280px;
+  }
+}
+
 /* Single Post Repack Details Body & Dropdowns / Spoilers Dark Mode */
 .fg-single-post-body {
   line-height: 1.65;

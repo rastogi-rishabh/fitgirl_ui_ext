@@ -81,6 +81,37 @@ function parseSinglePost(domContext) {
     });
   });
 
+  let animatedPreview = null;
+  const videoEl = contentEl.querySelector('video');
+  if (videoEl) {
+    const sourceEl = videoEl.querySelector('source');
+    const videoSrc = sourceEl?.getAttribute('src') || videoEl.getAttribute('src');
+    if (videoSrc) {
+      const parentA = videoEl.closest('a');
+      animatedPreview = {
+        type: 'video',
+        src: videoSrc.replace(/^http:\/\//i, 'https://'),
+        linkUrl: parentA ? (parentA.getAttribute('href')?.replace(/^http:\/\//i, 'https://') || '') : ''
+      };
+    }
+  }
+
+  if (!animatedPreview) {
+    const gifImgs = contentEl.querySelectorAll('img[src*=".gif"], a[href*="riotpixels"] img[src*=".gif"], p img[src*=".gif"]');
+    for (const gifImg of gifImgs) {
+      const gifSrc = gifImg.getAttribute('src') || gifImg.getAttribute('data-src');
+      if (gifSrc && !gifSrc.includes('cropped-icon') && !gifSrc.includes('spinner') && !gifSrc.includes('preloader')) {
+        const parentA = gifImg.closest('a');
+        animatedPreview = {
+          type: 'gif',
+          src: gifSrc.replace(/^http:\/\//i, 'https://'),
+          linkUrl: parentA ? (parentA.getAttribute('href')?.replace(/^http:\/\//i, 'https://') || '') : ''
+        };
+        break;
+      }
+    }
+  }
+
   let mirrorsHtml = '';
   const mirrorsHeader = Array.from(contentEl.querySelectorAll('h3')).find(h3 => h3.textContent.includes('Download Mirrors'));
   if (mirrorsHeader) {
@@ -116,6 +147,7 @@ function parseSinglePost(domContext) {
     companies: companies,
     languages: languages,
     screenshots: screenshots,
+    animatedPreview: animatedPreview,
     trailerUrl: '',
     contentHtml: cleanInlineDarkColors(contentHtml),
     mirrorsHtml: cleanInlineDarkColors(mirrorsHtml),
