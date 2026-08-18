@@ -25,10 +25,6 @@ The Extension **does not collect, track, transmit, or share any personal user da
 > **Justification for Chrome Web Store Privacy Tab:**
 > "Used to save local user preferences (such as enabling/disabling the Modern UI, default view mode, and search filter settings) in `chrome.storage.local`."
 
-### `alarms`
-> **Justification for Chrome Web Store Privacy Tab:**
-> "Used to schedule periodic background checks for newly published game repack releases."
-
 ---
 
 ## 4. Third-Party Network Requests
